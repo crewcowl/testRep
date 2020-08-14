@@ -1,0 +1,59 @@
+﻿@using WebRegistrationTask.Models
+@model UserViewModel
+@{
+    ViewBag.Title = "Все пользователи";
+}
+<a asp-action="Create">Добавить пользователя</a>
+<form method="get">
+    <div class="form-inline">
+        <select id="colorDrop" name="colorDrop">
+            <option value="">Выберите цвет</option>
+            @foreach (var colorName in Model.colors)
+            {
+                <option>@colorName.name</option>
+            }
+
+        </select>
+        <select id="drinkDrop" name="drinkDrop">
+            <option value="">Выберите напиток</option>
+            @foreach (var drinkName in Model.drinks)
+            {
+                <option>@drinkName.name</option>
+            }
+        </select>
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+</form>
+
+    <table class="table">
+        <tr><td>Имя</td><td>Фамилия</td><td>Дата Рождения</td><td>Номер телефона</td><td>Цвета</td><td>Напитки</td></tr>
+        @foreach (var item in Model.userListModels)
+        {
+            <tr>
+                <td>@item.Users.name</td>
+                <td>@item.Users.surname</td>
+                <td>@item.Users.birthday.ToString("dd/MM/yyyy")</td>
+                <td>@item.Users.phone</td>
+                <td>
+                    @if (item.Colors != null)
+                    {
+                        @foreach (var color in item.Colors)
+                        {
+                            @color.name
+                            <br />
+                        }
+                    }
+                </td>
+                <td>
+                    @if (item.Drinks != null)
+                    {
+                        @foreach (var drink in item.Drinks)
+                        {
+                            @drink.name
+                            <br />
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </table>
